@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheXeshaan Islamic Toolkit</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-dark: #9A7A32;
+    --deep: #0D1B2A;
+    --deep2: #162032;
+    --teal: #1A5F7A;
+    --teal-light: #2E8B9A;
+    --cream: #F5EFE0;
+    --cream2: #EDE3CC;
+    --green: #2D6A4F;
+    --green-light: #52B788;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--deep);
+    color: var(--cream);
+    font-family: 'Lato', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.08) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 80%, rgba(26,95,122,0.1) 0%, transparent 55%),
+      url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(201,168,76,0.05)' stroke-width='0.5'%3E%3Cpolygon points='60,10 110,35 110,85 60,110 10,85 10,35'/%3E%3Cpolygon points='60,25 95,42 95,78 60,95 25,78 25,42'/%3E%3Cline x1='60' y1='10' x2='60' y2='25'/%3E%3Cline x1='110' y1='35' x2='95' y2='42'/%3E%3Cline x1='110' y1='85' x2='95' y2='78'/%3E%3Cline x1='60' y1='110' x2='60' y2='95'/%3E%3Cline x1='10' y1='85' x2='25' y2='78'/%3E%3Cline x1='10' y1='35' x2='25' y2='42'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: auto, auto, 120px 120px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  /* === HEADER === */
+  .header { text-align: center; margin-bottom: 3rem; }
+
+  .moon-icon {
+    font-size: 2.8rem;
+    display: block;
+    margin-bottom: 0.5rem;
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .bismillah {
+    font-family: 'Amiri', serif;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    color: var(--gold-light);
+    margin-bottom: 0.8rem;
+    opacity: 0.9;
+  }
+
+  .ornament {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.8rem; margin: 1rem 0;
+  }
+  .orn-line { height: 1px; width: 80px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .orn-diamond { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); }
+
+  h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.6rem, 5vw, 2.8rem);
+    color: var(--gold);
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+  .tagline {
+    font-size: clamp(0.8rem, 2vw, 0.95rem);
+    color: var(--cream2);
+    opacity: 0.65;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* === TOOL CARDS === */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+  }
+
+  .card {
+    background: linear-gradient(135deg, var(--deep2), #1C2F42);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 18px;
+    padding: 2rem 1.8rem 1.8rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+    border-radius: 18px 18px 0 0;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(201,168,76,0.1);
+    border-color: rgba(201,168,76,0.5);
+  }
+
+  .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .card-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+    line-height: 1.3;
+  }
+  .card-desc {
+    font-size: 0.88rem;
+    color: var(--cream2);
+    opacity: 0.8;
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 1.2rem;
+  }
+  .card-features {
+    list-style: none;
+    margin-bottom: 1.5rem;
+  }
+  .card-features li {
+    font-size: 0.8rem;
+    color: var(--cream2);
+    opacity: 0.7;
+    padding: 0.2rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .card-features li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.6rem;
+    top: 0.3rem;
+  }
+
+  .card-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: var(--deep);
+    padding: 0.65rem 1.5rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+  .card:hover .card-btn {
+    box-shadow: 0 4px 20px rgba(201,168,76,0.4);
+    transform: scale(1.03);
+  }
+  .card.teal-card::before {
+    background: linear-gradient(90deg, var(--teal), var(--teal-light), var(--teal));
+  }
+  .card.teal-card .card-btn {
+    background: linear-gradient(135deg, var(--teal), var(--teal-light));
+    color: var(--cream);
+  }
+
+  /* === DOWNLOAD SECTION === */
+  .download-section {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 14px;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .download-section .dl-icon { font-size: 2rem; flex-shrink: 0; }
+  .dl-text { flex: 1; min-width: 200px; }
+  .dl-text h3 { font-family: 'Amiri', serif; color: var(--gold-light); font-size: 1.05rem; margin-bottom: 0.2rem; }
+  .dl-text p { font-size: 0.82rem; color: var(--cream2); opacity: 0.7; }
+  .dl-btn {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 0.55rem 1.3rem;
+    border-radius: 25px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+  .dl-btn:hover { background: var(--gold); color: var(--deep); }
+
+  /* === SOCIAL LINKS === */
+  .social-section { text-align: center; margin: 2.5rem 0 1rem; }
+  .social-section h3 {
+    font-family: 'Amiri', serif;
+    color: var(--gold-light);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  .socials {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.4rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    transition: all 0.3s;
+  }
+  .btn-ig { background: linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045); color:#fff; }
+  .btn-gumroad { background: linear-gradient(135deg,var(--teal),var(--gold-dark)); color:var(--cream); border:1px solid var(--gold); }
+  .btn-quran { background: linear-gradient(135deg,var(--green),var(--teal)); color:var(--cream); }
+  .social-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.35); }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(201,168,76,0.12);
+    margin-top: 2rem;
+  }
+  .footer-arabic { font-family:'Amiri',serif; font-size:1.1rem; color:var(--gold-light); opacity:0.7; margin-bottom:0.5rem; }
+  .footer-credit { font-size:0.75rem; color:rgba(245,239,224,0.3); letter-spacing:0.08em; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <span class="moon-icon">☽</span>
+    <div class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+    <div class="ornament"><div class="orn-line"></div><div class="orn-diamond"></div><div class="orn-line"></div></div>
+    <h1>TheXeshaan<br>Islamic Toolkit</h1>
+    <p class="tagline">Beautiful Islamic Tools for Daily Worship & Quran Journey</p>
+    <div class="ornament"><div class="orn-line"></div><div class="orn-diamond"></div><div class="orn-line"></div></div>
+  </div>
+
+  <!-- TOOL CARDS -->
+  <div class="cards">
+
+    <a class="card" href="quran_shelf.html">
+      <span class="card-icon">📖</span>
+      <div class="card-title">My Quran Reading Journey</div>
+      <p class="card-desc">An interactive golden bookshelf featuring all 114 Surahs of the Holy Quran. Track your reading progress beautifully.</p>
+      <ul class="card-features">
+        <li>All 114 Surahs as clickable books</li>
+        <li>Opens directly on Quran.com</li>
+        <li>Mark complete — books glow gold</li>
+        <li>Progress auto-saved in browser</li>
+      </ul>
+      <div class="card-btn">Open Quran Shelf →</div>
+    </a>
+
+    <a class="card teal-card" href="tracker.html">
+      <span class="card-icon">🌙</span>
+      <div class="card-title">28-Day Muslim Consistency Tracker</div>
+      <p class="card-desc">Build strong Islamic habits over 28 days. Track your Salah, daily tasks, and Quran reading goal every day.</p>
+      <ul class="card-features">
+        <li>Daily Salah & Tasks checkboxes</li>
+        <li>Set your personal Salah times</li>
+        <li>Quran reading goal input</li>
+        <li>Gold progress bar tracker</li>
+      </ul>
+      <div class="card-btn">Start Tracking →</div>
+    </a>
+
+  </div>
+
+  <!-- PRINTABLE DOWNLOAD -->
+  <div class="download-section">
+    <div class="dl-icon">🖨️</div>
+    <div class="dl-text">
+      <h3>Printable Version Available</h3>
+      <p>Download the PPTX file — print & share with family, friends & your audience for daily use.</p>
+    </div>
+    <a class="dl-btn" href="TheXeshaan_Islamic_Printable.pptx" download>⬇ Download PPTX</a>
+  </div>
+
+  <!-- SOCIAL -->
+  <div class="social-section">
+    <h3>Follow · Support · Read</h3>
+    <div class="socials">
+      <a class="social-btn btn-ig" href="https://www.instagram.com/thexeshaan.islamic/" target="_blank">
+        📸 @thexeshaan.islamic
+      </a>
+      <a class="social-btn btn-gumroad" href="https://thexeshaanislamic.gumroad.com" target="_blank">
+        📚 Islamic Guides — Gumroad
+      </a>
+      <a class="social-btn btn-quran" href="https://quran.com" target="_blank">
+        🌿 Read Quran Online
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-arabic">وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا</div>
+    <p class="footer-credit">© TheXeshaan Islamic · May Allah accept your worship · آمين</p>
+  </div>
+
+</div>
+</body>
+</html>

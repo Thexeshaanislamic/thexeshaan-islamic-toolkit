@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>28-Day Muslim Consistency Tracker | TheXeshaan Islamic</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-dark: #9A7A32;
+    --deep: #0D1B2A;
+    --deep2: #162032;
+    --teal: #1A5F7A;
+    --teal-light: #2E8B9A;
+    --cream: #F5EFE0;
+    --cream2: #EDE3CC;
+    --rose: #8B3A3A;
+    --green: #2D6A4F;
+    --green-light: #52B788;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--deep);
+    color: var(--cream);
+    font-family: 'Lato', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* === GEOMETRIC BACKGROUND === */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(26,95,122,0.12) 0%, transparent 60%),
+      url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(201,168,76,0.06)' stroke-width='0.5'%3E%3Cpolygon points='60,10 110,35 110,85 60,110 10,85 10,35'/%3E%3Cpolygon points='60,25 95,42 95,78 60,95 25,78 25,42'/%3E%3Cline x1='60' y1='10' x2='60' y2='25'/%3E%3Cline x1='110' y1='35' x2='95' y2='42'/%3E%3Cline x1='110' y1='85' x2='95' y2='78'/%3E%3Cline x1='60' y1='110' x2='60' y2='95'/%3E%3Cline x1='10' y1='85' x2='25' y2='78'/%3E%3Cline x1='10' y1='35' x2='25' y2='42'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: auto, auto, 120px 120px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem 4rem;
+  }
+
+  /* === HEADER === */
+  .header {
+    text-align: center;
+    padding: 2.5rem 1rem 2rem;
+    position: relative;
+  }
+  .header::before {
+    content: '☽';
+    position: absolute;
+    top: 1rem; left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+  .bismillah {
+    font-family: 'Amiri', serif;
+    font-size: 1.6rem;
+    color: var(--gold-light);
+    letter-spacing: 0.1em;
+    margin: 2rem 0 0.5rem;
+    opacity: 0.9;
+  }
+  h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+    margin-bottom: 0.3rem;
+  }
+  .subtitle {
+    font-size: 0.85rem;
+    color: var(--cream2);
+    opacity: 0.7;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin: 1.2rem 0;
+  }
+  .ornament-line {
+    height: 1px;
+    width: 80px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .ornament-diamond {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  /* === PROGRESS OVERVIEW === */
+  .progress-bar-container {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 50px;
+    padding: 0.5rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem auto;
+    max-width: 500px;
+  }
+  .progress-label { font-size: 0.8rem; color: var(--gold-light); white-space: nowrap; }
+  .progress-track {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal-light), var(--gold));
+    border-radius: 3px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+  .progress-count { font-size: 0.85rem; color: var(--cream); font-weight: 700; white-space: nowrap; }
+
+  /* === GOAL INPUT === */
+  .goal-section {
+    background: rgba(26,95,122,0.15);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .goal-section h3 {
+    font-family: 'Amiri', serif;
+    font-size: 1rem;
+    color: var(--gold-light);
+    margin-bottom: 0.8rem;
+  }
+  .goal-input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    color: var(--cream);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border 0.3s;
+  }
+  .goal-input:focus { border-color: var(--gold); }
+  .goal-input::placeholder { color: rgba(245,239,224,0.35); }
+
+  /* === SALAH TIMES === */
+  .salah-section {
+    background: rgba(45,106,79,0.12);
+    border: 1px solid rgba(82,183,136,0.2);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .salah-section h3 {
+    font-family: 'Amiri', serif;
+    color: var(--green-light);
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+  .salah-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.6rem;
+  }
+  @media(max-width: 540px) { .salah-grid { grid-template-columns: repeat(3, 1fr); } }
+  .salah-item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(82,183,136,0.2);
+    border-radius: 8px;
+    padding: 0.5rem;
+    text-align: center;
+  }
+  .salah-name { font-size: 0.7rem; color: var(--green-light); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.3rem; }
+  .salah-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(82,183,136,0.4);
+    color: var(--cream);
+    font-size: 0.85rem;
+    text-align: center;
+    outline: none;
+    padding: 0.2rem 0;
+    font-family: 'Lato', sans-serif;
+  }
+  .salah-input::placeholder { color: rgba(245,239,224,0.25); font-size: 0.75rem; }
+
+  /* === DAILY TASKS === */
+  .tasks-section {
+    background: rgba(139,58,58,0.1);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    margin: 1rem 0 1.5rem;
+  }
+  .tasks-section h3 {
+    font-family: 'Amiri', serif;
+    color: var(--gold-light);
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+  .task-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0;
+    font-size: 0.88rem;
+    color: var(--cream2);
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+  }
+  .task-item:last-child { border-bottom: none; }
+  .task-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* === 28-DAY GRID === */
+  .grid-section {
+    margin: 2rem 0;
+  }
+  .grid-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.08em;
+  }
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+  }
+  @media(max-width: 600px) { .days-grid { grid-template-columns: repeat(4, 1fr); gap: 0.4rem; } }
+
+  .day-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 10px;
+    padding: 0.5rem 0.3rem 0.7rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .day-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--gold), var(--teal));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .day-card.done::before { opacity: 1; }
+  .day-card.partial::before {
+    background: linear-gradient(135deg, var(--gold-dark), var(--teal));
+    opacity: 0.5;
+  }
+  .day-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .day-card.done { border-color: var(--gold); }
+
+  .day-number {
+    position: relative;
+    z-index: 1;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-bottom: 0.4rem;
+  }
+  .day-card.done .day-number { color: var(--deep); }
+
+  .day-checks {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .check-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    font-size: 0.6rem;
+  }
+  .check-box {
+    width: 13px; height: 13px;
+    border: 1px solid rgba(201,168,76,0.5);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: rgba(255,255,255,0.04);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .check-box.checked {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .day-card.done .check-box { border-color: rgba(13,27,42,0.5); }
+  .day-card.done .check-box.checked { background: var(--deep); }
+  .check-box svg { width: 8px; height: 8px; display: none; }
+  .check-box.checked svg { display: block; }
+  .check-label {
+    color: rgba(245,239,224,0.55);
+    font-size: 0.58rem;
+  }
+  .day-card.done .check-label { color: rgba(13,27,42,0.7); }
+
+  .done-star {
+    position: absolute;
+    top: 3px; right: 4px;
+    z-index: 2;
+    font-size: 0.7rem;
+    display: none;
+  }
+  .day-card.done .done-star { display: block; }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    margin-top: 2rem;
+  }
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+  }
+  .social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    transition: all 0.3s;
+  }
+  .btn-instagram {
+    background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+    color: #fff;
+  }
+  .btn-gumroad {
+    background: linear-gradient(135deg, var(--teal), var(--gold-dark));
+    color: var(--cream);
+    border: 1px solid var(--gold);
+  }
+  .btn-quran {
+    background: linear-gradient(135deg, var(--green), var(--teal));
+    color: var(--cream);
+  }
+  .social-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+  .footer-credit {
+    font-size: 0.72rem;
+    color: rgba(245,239,224,0.35);
+    letter-spacing: 0.08em;
+  }
+
+  /* === RESET BUTTON === */
+  .reset-btn {
+    background: transparent;
+    border: 1px solid rgba(139,58,58,0.5);
+    color: rgba(245,239,224,0.4);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 1rem;
+  }
+  .reset-btn:hover { border-color: var(--rose); color: var(--rose); }
+
+  /* === MONTH LABEL === */
+  .month-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold-light);
+    font-family: 'Amiri', serif;
+    font-size: 1.1rem;
+    text-align: center;
+    outline: none;
+    width: 200px;
+    padding: 0.2rem 0;
+    display: block;
+    margin: 0.5rem auto 1.5rem;
+  }
+  .month-input::placeholder { color: rgba(201,168,76,0.3); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+    <div class="ornament"><div class="ornament-line"></div><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
+    <h1>28-Day Muslim<br>Consistency Tracker</h1>
+    <p class="subtitle">Build Habits That Please Allah</p>
+    <div class="ornament"><div class="ornament-line"></div><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
+    <input class="month-input" type="text" id="monthLabel" placeholder="Month / Year" maxlength="30">
+  </div>
+
+  <div class="progress-bar-container">
+    <span class="progress-label">🌙 Journey</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-count" id="progressCount">0 / 28 days</span>
+  </div>
+
+  <!-- Daily Salah -->
+  <div class="salah-section">
+    <h3>🕌 Daily Salah Times</h3>
+    <div class="salah-grid">
+      <div class="salah-item">
+        <div class="salah-name">Fajr</div>
+        <input class="salah-input" id="fajr" type="text" placeholder="__ : __">
+      </div>
+      <div class="salah-item">
+        <div class="salah-name">Zuhr</div>
+        <input class="salah-input" id="zuhr" type="text" placeholder="__ : __">
+      </div>
+      <div class="salah-item">
+        <div class="salah-name">Asr</div>
+        <input class="salah-input" id="asr" type="text" placeholder="__ : __">
+      </div>
+      <div class="salah-item">
+        <div class="salah-name">Maghrib</div>
+        <input class="salah-input" id="maghrib" type="text" placeholder="__ : __">
+      </div>
+      <div class="salah-item">
+        <div class="salah-name">Isha</div>
+        <input class="salah-input" id="isha" type="text" placeholder="__ : __">
+      </div>
+    </div>
+  </div>
+
+  <!-- Daily Tasks Reference -->
+  <div class="tasks-section">
+    <h3>✨ Daily Tasks</h3>
+    <div class="task-item"><div class="task-dot"></div>Pray all five prayers on time</div>
+    <div class="task-item"><div class="task-dot"></div>Make du'a for family</div>
+    <div class="task-item"><div class="task-dot"></div>Connect meaningfully with family</div>
+    <div class="task-item"><div class="task-dot"></div>Limit unnecessary phone time</div>
+    <div class="task-item"><div class="task-dot"></div>Journal or reflect on one blessing of the day</div>
+  </div>
+
+  <!-- Quran Goal -->
+  <div class="goal-section">
+    <h3>📖 My Quran Reading Goal</h3>
+    <input class="goal-input" id="quranGoal" type="text" placeholder="e.g. Read 2 pages after each Salah, complete Juz 'Amma this month...">
+  </div>
+
+  <!-- 28-Day Grid -->
+  <div class="grid-section">
+    <div class="grid-title">✦ Track Your 28 Days ✦</div>
+    <div class="days-grid" id="daysGrid"></div>
+    <div style="text-align:center">
+      <button class="reset-btn" onclick="resetAll()">↺ Reset All Progress</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="ornament"><div class="ornament-line"></div><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
+    <div class="social-links" style="margin-top:1.2rem">
+      <a class="social-btn btn-instagram" href="https://www.instagram.com/thexeshaan.islamic/" target="_blank">
+        📸 @thexeshaan.islamic
+      </a>
+      <a class="social-btn btn-gumroad" href="https://thexeshaanislamic.gumroad.com" target="_blank">
+        📚 Islamic Guides on Gumroad
+      </a>
+      <a class="social-btn btn-quran" href="https://quran.com" target="_blank">
+        🌿 Quran.com
+      </a>
+    </div>
+    <p class="footer-credit">© TheXeshaan Islamic · May Allah accept your efforts · آمين</p>
+  </div>
+
+</div>
+
+<script>
+const STORAGE_KEY = 'tracker_v2';
+let state = {
+  days: Array.from({length:28}, (_,i) => ({ salah: false, tasks: false })),
+  salah: { fajr:'', zuhr:'', asr:'', maghrib:'', isha:'' },
+  quranGoal: '',
+  monthLabel: ''
+};
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) state = JSON.parse(saved);
+  } catch(e) {}
+}
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+function buildGrid() {
+  const grid = document.getElementById('daysGrid');
+  grid.innerHTML = '';
+  state.days.forEach((day, i) => {
+    const n = i + 1;
+    const bothDone = day.salah && day.tasks;
+    const anyDone = day.salah || day.tasks;
+    const card = document.createElement('div');
+    card.className = 'day-card' + (bothDone ? ' done' : anyDone ? ' partial' : '');
+    card.innerHTML = `
+      <div class="done-star">⭐</div>
+      <div class="day-number">${n}</div>
+      <div class="day-checks">
+        <div class="check-row">
+          <div class="check-box ${day.salah ? 'checked' : ''}" data-day="${i}" data-type="salah">
+            <svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="${bothDone ? '#0D1B2A':'#C9A84C'}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Salah</span>
+        </div>
+        <div class="check-row">
+          <div class="check-box ${day.tasks ? 'checked' : ''}" data-day="${i}" data-type="tasks">
+            <svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="${bothDone ? '#0D1B2A':'#C9A84C'}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="check-label">Tasks</span>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+  grid.querySelectorAll('.check-box').forEach(box => {
+    box.addEventListener('click', e => {
+      e.stopPropagation();
+      const d = parseInt(box.dataset.day);
+      const t = box.dataset.type;
+      state.days[d][t] = !state.days[d][t];
+      saveState();
+      buildGrid();
+      updateProgress();
+    });
+  });
+}
+
+function updateProgress() {
+  const done = state.days.filter(d => d.salah && d.tasks).length;
+  const pct = (done / 28) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressCount').textContent = `${done} / 28 days`;
+}
+
+function resetAll() {
+  if(!confirm('Reset all 28-day progress? This cannot be undone.')) return;
+  state.days = Array.from({length:28}, () => ({ salah: false, tasks: false }));
+  saveState();
+  buildGrid();
+  updateProgress();
+}
+
+// Bind salah inputs
+['fajr','zuhr','asr','maghrib','isha'].forEach(k => {
+  const el = document.getElementById(k);
+  el.value = state.salah[k] || '';
+  el.addEventListener('input', () => { state.salah[k] = el.value; saveState(); });
+});
+document.getElementById('quranGoal').addEventListener('input', e => { state.quranGoal = e.target.value; saveState(); });
+document.getElementById('monthLabel').addEventListener('input', e => { state.monthLabel = e.target.value; saveState(); });
+
+// Init
+loadState();
+document.getElementById('quranGoal').value = state.quranGoal || '';
+document.getElementById('monthLabel').value = state.monthLabel || '';
+['fajr','zuhr','asr','maghrib','isha'].forEach(k => {
+  document.getElementById(k).value = state.salah[k] || '';
+});
+buildGrid();
+updateProgress();
+</script>
+</body>
+</html>

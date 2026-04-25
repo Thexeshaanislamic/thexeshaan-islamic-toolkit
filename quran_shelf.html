@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Quran Reading Journey | TheXeshaan Islamic</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-dark: #9A7A32;
+    --deep: #0D1B2A;
+    --deep2: #162032;
+    --teal: #1A5F7A;
+    --cream: #F5EFE0;
+    --cream2: #EDE3CC;
+    --wood: #6B3F1F;
+    --wood2: #8B5E3C;
+    --wood3: #4A2B0E;
+    --shelf-bg: #1A0F05;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--deep);
+    color: var(--cream);
+    font-family: 'Lato', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse at 15% 30%, rgba(201,168,76,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 70%, rgba(26,95,122,0.1) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(201,168,76,0.05)' stroke-width='0.5'%3E%3Crect x='10' y='10' width='60' height='60' rx='2'/%3E%3Crect x='20' y='20' width='40' height='40' rx='2'/%3E%3Cline x1='40' y1='10' x2='40' y2='70'/%3E%3Cline x1='10' y1='40' x2='70' y2='40'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: auto, auto, 80px 80px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1rem 4rem;
+  }
+
+  /* === HEADER === */
+  .header { text-align: center; padding: 2rem 1rem; }
+  .bismillah {
+    font-family: 'Amiri', serif;
+    font-size: 1.8rem;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+  }
+  h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.4rem, 4vw, 2.4rem);
+    color: var(--gold);
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+  }
+  .subtitle { font-size: 0.82rem; color: var(--cream2); opacity: 0.65; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.3rem; }
+  .ornament { display:flex; align-items:center; justify-content:center; gap:0.8rem; margin:1rem 0; }
+  .ornament-line { height:1px; width:80px; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .ornament-diamond { width:8px; height:8px; background:var(--gold); transform:rotate(45deg); }
+
+  /* === TIPS === */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0 2rem;
+  }
+  .tip-card {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.18);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--cream2);
+  }
+  .tip-card strong { color: var(--gold-light); display: block; margin-bottom: 0.3rem; font-size: 0.85rem; }
+
+  /* === PROGRESS === */
+  .progress-bar-container {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 50px;
+    padding: 0.5rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 auto 2rem;
+    max-width: 550px;
+  }
+  .progress-label { font-size: 0.8rem; color: var(--gold-light); white-space: nowrap; }
+  .progress-track { flex:1; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; overflow:hidden; }
+  .progress-fill { height:100%; background:linear-gradient(90deg,#2D6A4F,var(--gold)); border-radius:3px; transition:width 0.5s ease; }
+  .progress-count { font-size:0.85rem; color:var(--cream); font-weight:700; white-space:nowrap; }
+
+  /* === BOOKSHELF === */
+  .shelf-container {
+    background: linear-gradient(180deg, rgba(26,15,5,0.8) 0%, rgba(10,6,2,0.95) 100%);
+    border: 1px solid rgba(107,63,31,0.5);
+    border-radius: 16px;
+    padding: 1.5rem 1rem 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 60px rgba(0,0,0,0.5), 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .shelf-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .shelf-row {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .shelf-row-label {
+    font-size: 0.65rem;
+    color: rgba(201,168,76,0.35);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    padding-left: 0.3rem;
+  }
+
+  .books-row {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 3px;
+    padding: 0.5rem 0.2rem 0;
+    min-height: 80px;
+  }
+
+  /* Wood shelf plank */
+  .shelf-plank {
+    height: 14px;
+    background: linear-gradient(180deg, var(--wood2) 0%, var(--wood) 40%, var(--wood3) 100%);
+    border-radius: 2px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  .shelf-plank::before {
+    content: '';
+    position: absolute;
+    inset: 2px 0 0;
+    background: repeating-linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.06) 3px, transparent 6px);
+  }
+
+  /* === BOOKS === */
+  .book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 2px 4px 4px 2px;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    flex-shrink: 0;
+    transform-origin: bottom center;
+  }
+  .book:hover {
+    transform: translateY(-8px) scale(1.04);
+    z-index: 10;
+  }
+  .book-spine {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-size: 0.52rem;
+    font-family: 'Amiri', serif;
+    color: rgba(255,255,255,0.85);
+    padding: 4px 2px;
+    line-height: 1.2;
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 100%;
+  }
+  .book.completed .book-spine { color: rgba(13,27,42,0.9); }
+  .book-cover {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 2px 4px 4px 2px;
+    border-left: 2px solid rgba(0,0,0,0.3);
+    transition: all 0.25s;
+  }
+  .book.completed .book-cover {
+    box-shadow: inset -2px 0 4px rgba(0,0,0,0.3), 2px 0 8px rgba(201,168,76,0.4);
+  }
+  .check-mark {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 10px; height: 10px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    z-index: 2;
+  }
+  .book.completed .check-mark { display: flex; }
+
+  /* === TOOLTIP/MODAL === */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: linear-gradient(135deg, var(--deep2), #1C2F42);
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+  .modal-close {
+    position: absolute;
+    top: 0.8rem; right: 1rem;
+    background: none; border: none;
+    color: rgba(245,239,224,0.5);
+    font-size: 1.3rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .modal-surah-num {
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .modal-surah-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.4rem;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+  }
+  .modal-arabic {
+    font-family: 'Amiri', serif;
+    font-size: 1.6rem;
+    color: var(--gold-light);
+    margin-bottom: 1rem;
+  }
+  .modal-actions {
+    display: flex;
+    gap: 0.7rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  .modal-btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .btn-read {
+    background: linear-gradient(135deg, var(--teal), #2D6A4F);
+    color: var(--cream);
+    border: none;
+  }
+  .btn-complete {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+  }
+  .btn-complete.completed-state {
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: var(--deep);
+    border-color: transparent;
+  }
+  .modal-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    margin-top: 2.5rem;
+  }
+  .social-links { display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .social-btn {
+    display:inline-flex; align-items:center; gap:0.4rem;
+    padding:0.5rem 1.1rem; border-radius:30px;
+    text-decoration:none; font-size:0.8rem; font-weight:700;
+    letter-spacing:0.05em; transition:all 0.3s;
+  }
+  .btn-instagram { background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045); color:#fff; }
+  .btn-gumroad { background:linear-gradient(135deg,var(--teal),var(--gold-dark)); color:var(--cream); border:1px solid var(--gold); }
+  .social-btn:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.3); }
+  .footer-credit { font-size:0.72rem; color:rgba(245,239,224,0.3); letter-spacing:0.08em; }
+
+  .reset-btn {
+    background:transparent; border:1px solid rgba(139,58,58,0.4);
+    color:rgba(245,239,224,0.35); padding:0.4rem 1rem;
+    border-radius:20px; font-size:0.75rem; cursor:pointer;
+    transition:all 0.3s; margin-top:1.2rem;
+  }
+  .reset-btn:hover { border-color:#8B3A3A; color:#8B3A3A; }
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+  <div class="header">
+    <div class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+    <div class="ornament"><div class="ornament-line"></div><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
+    <h1>My Quran Reading Journey</h1>
+    <p class="subtitle">Color each Surah as you complete it · Until your shelf is full</p>
+    <div class="ornament"><div class="ornament-line"></div><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
+  </div>
+
+  <div class="tips-grid">
+    <div class="tip-card"><strong>🤍 Set an Intention</strong>Begin with Bismillah and remind yourself you're reading to grow closer to Allah.</div>
+    <div class="tip-card"><strong>💭 Read with Reflection</strong>Pause at verses — ask, <em>What does this mean for my life?</em> Write an insight down.</div>
+    <div class="tip-card"><strong>⚖️ Quality over Quantity</strong>Even a few verses read with understanding bring more barakah than rushing.</div>
+    <div class="tip-card"><strong>🤲 Make Du'a</strong>Ask Allah to open your heart and help you live by what you read.</div>
+  </div>
+
+  <div class="progress-bar-container">
+    <span class="progress-label">📖 Completed</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-count" id="progressCount">0 / 114 surahs</span>
+  </div>
+
+  <div class="shelf-container" id="shelfContainer"></div>
+  <div style="text-align:center"><button class="reset-btn" onclick="resetProgress()">↺ Reset All Progress</button></div>
+
+  <div class="footer">
+    <div class="ornament"><div class="ornament-line"></div><div class="ornament-diamond"></div><div class="ornament-line"></div></div>
+    <div class="social-links" style="margin-top:1.2rem">
+      <a class="social-btn btn-instagram" href="https://www.instagram.com/thexeshaan.islamic/" target="_blank">📸 @thexeshaan.islamic</a>
+      <a class="social-btn btn-gumroad" href="https://thexeshaanislamic.gumroad.com" target="_blank">📚 Islamic Guides on Gumroad</a>
+    </div>
+    <p class="footer-credit">© TheXeshaan Islamic · May Allah grant you barakah in your reading · آمين</p>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('active')">✕</button>
+    <div class="modal-surah-num" id="mNum"></div>
+    <div class="modal-surah-name" id="mName"></div>
+    <div class="modal-arabic" id="mArabic"></div>
+    <div id="mMeaning" style="font-size:0.78rem;color:rgba(245,239,224,0.55);margin-bottom:0.5rem;"></div>
+    <div id="mVerses" style="font-size:0.75rem;color:rgba(201,168,76,0.7);"></div>
+    <div class="modal-actions">
+      <a class="modal-btn btn-read" id="mLink" href="#" target="_blank">🌿 Read on Quran.com</a>
+      <button class="modal-btn btn-complete" id="mComplete" onclick="toggleComplete()">✓ Mark Complete</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SURAHS = [
+  {n:1,name:"Al-Fatiha",ar:"الفاتحة",meaning:"The Opening",v:7},
+  {n:2,name:"Al-Baqarah",ar:"البقرة",meaning:"The Cow",v:286},
+  {n:3,name:"Al-Imran",ar:"آل عمران",meaning:"Family of Imran",v:200},
+  {n:4,name:"An-Nisa",ar:"النساء",meaning:"The Women",v:176},
+  {n:5,name:"Al-Ma'idah",ar:"المائدة",meaning:"The Table Spread",v:120},
+  {n:6,name:"Al-An'am",ar:"الأنعام",meaning:"The Cattle",v:165},
+  {n:7,name:"Al-A'raf",ar:"الأعراف",meaning:"The Heights",v:206},
+  {n:8,name:"Al-Anfal",ar:"الأنفال",meaning:"The Spoils of War",v:75},
+  {n:9,name:"At-Tawbah",ar:"التوبة",meaning:"The Repentance",v:129},
+  {n:10,name:"Yunus",ar:"يونس",meaning:"Jonah",v:109},
+  {n:11,name:"Hud",ar:"هود",meaning:"Hud",v:123},
+  {n:12,name:"Yusuf",ar:"يوسف",meaning:"Joseph",v:111},
+  {n:13,name:"Ar-Ra'd",ar:"الرعد",meaning:"The Thunder",v:43},
+  {n:14,name:"Ibrahim",ar:"إبراهيم",meaning:"Abraham",v:52},
+  {n:15,name:"Al-Hijr",ar:"الحجر",meaning:"The Rocky Tract",v:99},
+  {n:16,name:"An-Nahl",ar:"النحل",meaning:"The Bee",v:128},
+  {n:17,name:"Al-Isra",ar:"الإسراء",meaning:"The Night Journey",v:111},
+  {n:18,name:"Al-Kahf",ar:"الكهف",meaning:"The Cave",v:110},
+  {n:19,name:"Maryam",ar:"مريم",meaning:"Mary",v:98},
+  {n:20,name:"Ta-Ha",ar:"طه",meaning:"Ta-Ha",v:135},
+  {n:21,name:"Al-Anbiya",ar:"الأنبياء",meaning:"The Prophets",v:112},
+  {n:22,name:"Al-Hajj",ar:"الحج",meaning:"The Pilgrimage",v:78},
+  {n:23,name:"Al-Mu'minun",ar:"المؤمنون",meaning:"The Believers",v:118},
+  {n:24,name:"An-Nur",ar:"النور",meaning:"The Light",v:64},
+  {n:25,name:"Al-Furqan",ar:"الفرقان",meaning:"The Criterion",v:77},
+  {n:26,name:"Ash-Shu'ara",ar:"الشعراء",meaning:"The Poets",v:227},
+  {n:27,name:"An-Naml",ar:"النمل",meaning:"The Ant",v:93},
+  {n:28,name:"Al-Qasas",ar:"القصص",meaning:"The Stories",v:88},
+  {n:29,name:"Al-Ankabut",ar:"العنكبوت",meaning:"The Spider",v:69},
+  {n:30,name:"Ar-Rum",ar:"الروم",meaning:"The Romans",v:60},
+  {n:31,name:"Luqman",ar:"لقمان",meaning:"Luqman",v:34},
+  {n:32,name:"As-Sajdah",ar:"السجدة",meaning:"The Prostration",v:30},
+  {n:33,name:"Al-Ahzab",ar:"الأحزاب",meaning:"The Combined Forces",v:73},
+  {n:34,name:"Saba",ar:"سبإ",meaning:"Sheba",v:54},
+  {n:35,name:"Fatir",ar:"فاطر",meaning:"Originator",v:45},
+  {n:36,name:"Yaseen",ar:"يس",meaning:"Ya Sin",v:83},
+  {n:37,name:"As-Saffat",ar:"الصافات",meaning:"Those Ranged in Ranks",v:182},
+  {n:38,name:"Sad",ar:"ص",meaning:"The Letter Sad",v:88},
+  {n:39,name:"Az-Zumar",ar:"الزمر",meaning:"The Groups",v:75},
+  {n:40,name:"Ghafir",ar:"غافر",meaning:"The Forgiver",v:85},
+  {n:41,name:"Fussilat",ar:"فصلت",meaning:"Explained in Detail",v:54},
+  {n:42,name:"Ash-Shura",ar:"الشورى",meaning:"The Consultation",v:53},
+  {n:43,name:"Az-Zukhruf",ar:"الزخرف",meaning:"The Gold Adornments",v:89},
+  {n:44,name:"Ad-Dukhan",ar:"الدخان",meaning:"The Smoke",v:59},
+  {n:45,name:"Al-Jathiyah",ar:"الجاثية",meaning:"The Crouching",v:37},
+  {n:46,name:"Al-Ahqaf",ar:"الأحقاف",meaning:"The Wind-Curved Sandhills",v:35},
+  {n:47,name:"Muhammad",ar:"محمد",meaning:"Muhammad",v:38},
+  {n:48,name:"Al-Fath",ar:"الفتح",meaning:"The Victory",v:29},
+  {n:49,name:"Al-Hujurat",ar:"الحجرات",meaning:"The Private Apartments",v:18},
+  {n:50,name:"Qaf",ar:"ق",meaning:"The Letter Qaf",v:45},
+  {n:51,name:"Adh-Dhariyat",ar:"الذاريات",meaning:"The Winnowing Winds",v:60},
+  {n:52,name:"At-Tur",ar:"الطور",meaning:"The Mount",v:49},
+  {n:53,name:"An-Najm",ar:"النجم",meaning:"The Star",v:62},
+  {n:54,name:"Al-Qamar",ar:"القمر",meaning:"The Moon",v:55},
+  {n:55,name:"Ar-Rahman",ar:"الرحمن",meaning:"The Beneficent",v:78},
+  {n:56,name:"Al-Waqi'ah",ar:"الواقعة",meaning:"The Inevitable",v:96},
+  {n:57,name:"Al-Hadid",ar:"الحديد",meaning:"The Iron",v:29},
+  {n:58,name:"Al-Mujadila",ar:"المجادلة",meaning:"The Pleading Woman",v:22},
+  {n:59,name:"Al-Hashr",ar:"الحشر",meaning:"The Exile",v:24},
+  {n:60,name:"Al-Mumtahanah",ar:"الممتحنة",meaning:"She That Is To Be Examined",v:13},
+  {n:61,name:"As-Saff",ar:"الصف",meaning:"The Ranks",v:14},
+  {n:62,name:"Al-Jumu'ah",ar:"الجمعة",meaning:"Friday",v:11},
+  {n:63,name:"Al-Munafiqun",ar:"المنافقون",meaning:"The Hypocrites",v:11},
+  {n:64,name:"At-Taghabun",ar:"التغابن",meaning:"The Mutual Disillusion",v:18},
+  {n:65,name:"At-Talaq",ar:"الطلاق",meaning:"The Divorce",v:12},
+  {n:66,name:"At-Tahrim",ar:"التحريم",meaning:"The Prohibition",v:12},
+  {n:67,name:"Al-Mulk",ar:"الملك",meaning:"The Sovereignty",v:30},
+  {n:68,name:"Al-Qalam",ar:"القلم",meaning:"The Pen",v:52},
+  {n:69,name:"Al-Haqqah",ar:"الحاقة",meaning:"The Reality",v:52},
+  {n:70,name:"Al-Ma'arij",ar:"المعارج",meaning:"The Ascending Stairways",v:44},
+  {n:71,name:"Nuh",ar:"نوح",meaning:"Noah",v:28},
+  {n:72,name:"Al-Jinn",ar:"الجن",meaning:"The Jinn",v:28},
+  {n:73,name:"Al-Muzzammil",ar:"المزمل",meaning:"The Enshrouded One",v:20},
+  {n:74,name:"Al-Muddaththir",ar:"المدثر",meaning:"The Cloaked One",v:56},
+  {n:75,name:"Al-Qiyamah",ar:"القيامة",meaning:"The Resurrection",v:40},
+  {n:76,name:"Al-Insan",ar:"الإنسان",meaning:"The Man",v:31},
+  {n:77,name:"Al-Mursalat",ar:"المرسلات",meaning:"The Emissaries",v:50},
+  {n:78,name:"An-Naba",ar:"النبأ",meaning:"The Tidings",v:40},
+  {n:79,name:"An-Nazi'at",ar:"النازعات",meaning:"Those Who Drag Forth",v:46},
+  {n:80,name:"Abasa",ar:"عبس",meaning:"He Frowned",v:42},
+  {n:81,name:"At-Takwir",ar:"التكوير",meaning:"The Overthrowing",v:29},
+  {n:82,name:"Al-Infitar",ar:"الانفطار",meaning:"The Cleaving",v:19},
+  {n:83,name:"Al-Mutaffifin",ar:"المطففين",meaning:"The Defrauding",v:36},
+  {n:84,name:"Al-Inshiqaq",ar:"الانشقاق",meaning:"The Sundering",v:25},
+  {n:85,name:"Al-Buruj",ar:"البروج",meaning:"The Mansions of the Stars",v:22},
+  {n:86,name:"At-Tariq",ar:"الطارق",meaning:"The Nightcomer",v:17},
+  {n:87,name:"Al-A'la",ar:"الأعلى",meaning:"The Most High",v:19},
+  {n:88,name:"Al-Ghashiyah",ar:"الغاشية",meaning:"The Overwhelming",v:26},
+  {n:89,name:"Al-Fajr",ar:"الفجر",meaning:"The Dawn",v:30},
+  {n:90,name:"Al-Balad",ar:"البلد",meaning:"The City",v:20},
+  {n:91,name:"Ash-Shams",ar:"الشمس",meaning:"The Sun",v:15},
+  {n:92,name:"Al-Lail",ar:"الليل",meaning:"The Night",v:21},
+  {n:93,name:"Ad-Duha",ar:"الضحى",meaning:"The Morning Hours",v:11},
+  {n:94,name:"Ash-Sharh",ar:"الشرح",meaning:"The Relief",v:8},
+  {n:95,name:"At-Tin",ar:"التين",meaning:"The Fig",v:8},
+  {n:96,name:"Al-Alaq",ar:"العلق",meaning:"The Clot",v:19},
+  {n:97,name:"Al-Qadr",ar:"القدر",meaning:"The Power",v:5},
+  {n:98,name:"Al-Bayyinah",ar:"البينة",meaning:"The Clear Proof",v:8},
+  {n:99,name:"Al-Zalzalah",ar:"الزلزلة",meaning:"The Earthquake",v:8},
+  {n:100,name:"Al-Adiyat",ar:"العاديات",meaning:"The Courser",v:11},
+  {n:101,name:"Al-Qari'ah",ar:"القارعة",meaning:"The Calamity",v:11},
+  {n:102,name:"At-Takathur",ar:"التكاثر",meaning:"The Rivalry in World Increase",v:8},
+  {n:103,name:"Al-Asr",ar:"العصر",meaning:"The Declining Day",v:3},
+  {n:104,name:"Al-Humazah",ar:"الهمزة",meaning:"The Traducer",v:9},
+  {n:105,name:"Al-Fil",ar:"الفيل",meaning:"The Elephant",v:5},
+  {n:106,name:"Quraysh",ar:"قريش",meaning:"Quraysh",v:4},
+  {n:107,name:"Al-Ma'un",ar:"الماعون",meaning:"The Small Kindnesses",v:7},
+  {n:108,name:"Al-Kawthar",ar:"الكوثر",meaning:"The Abundance",v:3},
+  {n:109,name:"Al-Kafirun",ar:"الكافرون",meaning:"The Disbelievers",v:6},
+  {n:110,name:"An-Nasr",ar:"النصر",meaning:"The Divine Support",v:3},
+  {n:111,name:"Al-Masad",ar:"المسد",meaning:"The Palm Fibre",v:5},
+  {n:112,name:"Al-Ikhlas",ar:"الإخلاص",meaning:"The Sincerity",v:4},
+  {n:113,name:"Al-Falaq",ar:"الفلق",meaning:"The Daybreak",v:5},
+  {n:114,name:"An-Nas",ar:"الناس",meaning:"Mankind",v:6}
+];
+
+// Book color palettes
+const PALETTES = [
+  ['#8B3A3A','#B04A4A'],['#2D5A8E','#3D7ABE'],['#2D6A4F','#3D8A6F'],
+  ['#6B3FA0','#8B5FC0'],['#7A4E2D','#9A6E4D'],['#1A5F7A','#2A7F9A'],
+  ['#5A3A2D','#7A5A4D'],['#3A5A2D','#5A7A4D'],['#7A3A5A','#9A5A7A'],
+  ['#4A5A2D','#6A7A4D'],['#2D4A5A','#4D6A7A'],['#5A4A2D','#7A6A4D'],
+  ['#3A2D5A','#5A4D7A'],['#8B6914','#A88930'],['#1F4E3D','#2F6E5D']
+];
+
+const COMPLETED_PALETTE = [
+  ['#C9A84C','#E8C96A'],['#52B788','#74D4A8'],['#F4A261','#F6C290'],
+  ['#E76F51','#F08060'],['#2A9D8F','#3ABFB0'],['#E9C46A','#F4D98A'],
+  ['#A8DADC','#C8FAFA'],['#90BE6D','#B0DE8D'],['#F9C74F','#FBD96F'],
+  ['#43AA8B','#63CAA0'],['#577590','#7795B0'],['#F3722C','#F5924C']
+];
+
+const STORAGE_KEY = 'quran_journey_v2';
+let completed = new Set();
+let currentSurah = null;
+
+function load() {
+  try {
+    const s = localStorage.getItem(STORAGE_KEY);
+    if (s) completed = new Set(JSON.parse(s));
+  } catch(e) {}
+}
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...completed])); } catch(e) {}
+}
+
+// Book heights based on number of verses (normalized)
+function bookHeight(verses) {
+  const min = 55, max = 105;
+  const minV = 3, maxV = 286;
+  return min + ((verses - minV) / (maxV - minV)) * (max - min);
+}
+function bookWidth(n) {
+  // Vary widths slightly
+  const base = [14,15,13,16,14,13,15,14,13,14,15,16,14,13,15][n % 15];
+  return base;
+}
+
+function buildShelf() {
+  const container = document.getElementById('shelfContainer');
+  container.innerHTML = '';
+
+  // Split surahs into rows of ~19
+  const rowSize = 19;
+  const rows = [];
+  for (let i = 0; i < SURAHS.length; i += rowSize) {
+    rows.push(SURAHS.slice(i, i + rowSize));
+  }
+
+  rows.forEach((rowSurahs, ri) => {
+    const rowDiv = document.createElement('div');
+    rowDiv.className = 'shelf-row';
+
+    const label = document.createElement('div');
+    label.className = 'shelf-row-label';
+    label.textContent = `Juz ${ri * 3 + 1}–${Math.min(30, ri * 3 + 3)} · Surah ${rowSurahs[0].n}–${rowSurahs[rowSurahs.length-1].n}`;
+    rowDiv.appendChild(label);
+
+    const booksRow = document.createElement('div');
+    booksRow.className = 'books-row';
+
+    rowSurahs.forEach(s => {
+      const done = completed.has(s.n);
+      const pi = (s.n - 1) % PALETTES.length;
+      const colors = done ? COMPLETED_PALETTE[pi % COMPLETED_PALETTE.length] : PALETTES[pi];
+
+      const book = document.createElement('div');
+      book.className = 'book' + (done ? ' completed' : '');
+      const h = bookHeight(s.v);
+      const w = bookWidth(s.n);
+      book.style.cssText = `width:${w}px;height:${h}px;background:linear-gradient(90deg,${colors[0]},${colors[1]});`;
+      book.title = `${s.n}. ${s.name}`;
+
+      book.innerHTML = `
+        <div class="book-cover"></div>
+        <div class="book-spine">${s.n}. ${s.name}</div>
+        <div class="check-mark">✓</div>`;
+
+      book.addEventListener('click', () => openModal(s));
+      booksRow.appendChild(book);
+    });
+
+    rowDiv.appendChild(booksRow);
+
+    const plank = document.createElement('div');
+    plank.className = 'shelf-plank';
+    rowDiv.appendChild(plank);
+    container.appendChild(rowDiv);
+  });
+}
+
+function openModal(s) {
+  currentSurah = s;
+  const done = completed.has(s.n);
+  document.getElementById('mNum').textContent = `Surah ${s.n}`;
+  document.getElementById('mName').textContent = s.name;
+  document.getElementById('mArabic').textContent = s.ar;
+  document.getElementById('mMeaning').textContent = s.meaning;
+  document.getElementById('mVerses').textContent = `${s.v} verses`;
+  document.getElementById('mLink').href = `https://quran.com/${s.n}`;
+  const btn = document.getElementById('mComplete');
+  btn.textContent = done ? '✓ Completed!' : '✓ Mark Complete';
+  btn.className = 'modal-btn btn-complete' + (done ? ' completed-state' : '');
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) {
+    document.getElementById('modalOverlay').classList.remove('active');
+  }
+}
+
+function toggleComplete() {
+  if (!currentSurah) return;
+  if (completed.has(currentSurah.n)) {
+    completed.delete(currentSurah.n);
+  } else {
+    completed.add(currentSurah.n);
+  }
+  save();
+  buildShelf();
+  updateProgress();
+  openModal(currentSurah);
+}
+
+function updateProgress() {
+  const cnt = completed.size;
+  document.getElementById('progressFill').style.width = (cnt / 114 * 100) + '%';
+  document.getElementById('progressCount').textContent = `${cnt} / 114 surahs`;
+}
+
+function resetProgress() {
+  if (!confirm('Reset all surah progress?')) return;
+  completed.clear();
+  save();
+  buildShelf();
+  updateProgress();
+}
+
+load();
+buildShelf();
+updateProgress();
+</script>
+</body>
+</html>
